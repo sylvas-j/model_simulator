@@ -11,25 +11,29 @@ ALLOWED_HOSTS = ['127.0.0.1','localhost','https://model-simulator.herokuapp.com/
 
 
 # TEST/DEVELOPMENT REMOTE DATABASE
-# DATABASES = {
-#     # 'default': {},
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'HOST': 'db4free.net',
-#         'PORT': '3306',
-#         'NAME': 'sn_rsu_db',
-#         'USER': 'sn_test_user',
-#         'PASSWORD': 'sn_test_user',
-#     },
-# }
-
-
 DATABASES = {
+    # 'default': {},
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'admin_mod_sim',
+        'USER': 'admin_root',
+        'PASSWORD': 'admin_sylvas',
+        # 'HOST': '104.37.191.201',
+        'HOST': 'devarchive.org',
+        'PORT': '3306',
+        'OPTIONS': {
+          'init_command': "set sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'"
+        },
+    },
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 
