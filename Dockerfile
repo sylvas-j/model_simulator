@@ -42,19 +42,23 @@ COPY . /app
 COPY --from=builder /opt/venv /opt/venv
 
 COPY entrypoint.sh .
+RUN chmod 755 entrypoint.sh
+# COPY ./entrypoint.sh .
+# RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
+# RUN chmod +x /usr/src/app/entrypoint.sh
 
 # Activate venv
 ENV PATH="/opt/venv/bin:$PATH"
-# Run Django migrations to create the necessary tables in the database
+# Run Django migrations when not using entrypoint file
 # RUN --add-host=host.docker.internal:host-gateway
-# RUN python manage.py migrate
+RUN python manage.py migrate
 # Collect static files
-# RUN python manage.py collectstatic
-# RUN python manage.py collectstatic --no-input
+RUN python manage.py collectstatic --no-input
+
 # Expose the default Django port
-EXPOSE 8000
+# EXPOSE ${APP_PORT}
 
 # USER sylvas
 # Start the Django development server
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-ENTRYPOINT ["sh", "-c", "entrypoint.sh"]
+CMD ["sh", "-c", "gunicorn models_simulator.wsgi:application --bind 0.0.0.0:${APP_PORT}"]
+# ENTRYPOINT ["sh", "-c", "entrypoint.sh"]
