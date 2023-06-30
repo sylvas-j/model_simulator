@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'smart_home_monitoring',
+    'court_cases_classification',
 ]
 
 MIDDLEWARE = [

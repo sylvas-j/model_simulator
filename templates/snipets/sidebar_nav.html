@@ -19,8 +19,17 @@
                 <li><a href="{% url 'smart_home_monitoring:upload_data' %}"><i class="fa fa fa-server"></i> <span>Actual $ Predicted</span></a></li>
             </ul>
         </li>
+        <li class="has-children">
+            <a href="{% url 'court_cases_classification:dashboard' %}"><i class="fa fa-file-text"></i> <span>Court Cases</span> <i class="fa fa-angle-right arrow"></i></a>
+            <ul class="child-nav">
+                
+                <li><a href="{% url 'court_cases_classification:court_case' %}"><i class="fa fa fa-server"></i> <span>Actual $ Predicted</span></a></li>
+            </ul>
+        </li>
     
-    <li><a href="{% url 'smart_home_monitoring:dashboard' %}"><i class="fa fa fa-server"></i> <span>Change Password</span></a></li>
+        <li>
+            <a href="{% url 'smart_home_monitoring:dashboard' %}"><i class="fa fa fa-server"></i> <span>Change Password</span></a>
+        </li>
 
-    </li>
+    </ul>
 </div>

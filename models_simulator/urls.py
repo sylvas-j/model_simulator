@@ -24,6 +24,7 @@ from smart_home_monitoring import views
 urlpatterns = [
     path('', views.index, name='home'),
     path('dashboard/smart-home', include('smart_home_monitoring.urls')),
+    path('dashboard/court-cases', include('court_cases_classification.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 

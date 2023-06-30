@@ -1,0 +1,14 @@
+{% load custom_tags %}
+
+{% for object in object_list %}
+<tr role="row" class="odd">
+<td class="">{{ object.id }}</td>
+    <td class="">{{ object.mat_no }}</td>
+    <td class="">{{ object.result_details__section }}</td>
+    <td>
+        <a href="{% url 'results:result_display' mat=object.mat_no|replace_arg:'/' sem=object.result_details__semester sec=object.result_details__section|replace_arg:'/' lev=object.result_details__level %}" class="btn btn-primary"><i class="fa fa-edit" title="View Result"></i>
+        </a>
+
+    </td>
+</tr>
+{% endfor %}
