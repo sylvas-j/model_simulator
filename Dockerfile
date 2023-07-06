@@ -51,6 +51,7 @@ RUN chmod 755 entrypoint.sh
 ENV PATH="/opt/venv/bin:$PATH"
 # Run Django migrations when not using entrypoint file
 # RUN --add-host=host.docker.internal:host-gateway
+RUN python manage.py makemigrations
 RUN python manage.py migrate
 # Collect static files
 RUN python manage.py collectstatic --no-input

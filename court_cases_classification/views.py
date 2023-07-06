@@ -10,9 +10,10 @@ from django.urls import reverse_lazy
 from openpyxl import load_workbook
 import os
 import itertools
+from django.utils import timezone
 
 # from sklearn.preprocessing import StandardScaler
-
+from court_cases_classification.models import UploadCourtCase
 from court_cases_classification.forms import UploadCourtCaseForm
 from .court_cases.predict import Predict
 import pandas as pd
@@ -94,17 +95,28 @@ def upload_data(request):
                     predRList.append('Not Sentence')
                 else:
                     predRList.append('Sentenced')
-            # data = [text]
+
+            # UploadCourtCaseForm.save(.)
+            data = [text]
+            # print(text)
             # print(predRList)
             # print(predC)
             # save record
-            # df1 = pd.DataFrame({'text':data,'crime_types':predC,'sentence':predRList})
-            # df2 = pd.read_csv(file_db)
-            # df3 = pd.concat([df2,df1],axis=0)
-            # df3.to_csv(file_db,index=False)
+            df1 = pd.DataFrame({'text':data,'crime_types':predC,'sentence':predRList})
+            df2 = pd.read_csv(file_db)
+            df3 = pd.concat([df2,df1],axis=0)
+            df3.to_csv(file_db,index=False)
 
+            # save result to db for safety
+            # for text,sentence,crime in zip(data,predRList,predC):
+            #     UploadCourtCase.objects.create(text=text, sentence=sentence, crime=crime)            
+            # # pull db content and delete it later
+            # result = UploadCourtCase.objects.filter(reg_date__lte=timezone.now()).values(
+            # 'text','sentence','crime')
+            # print(result)
 
             object_list = zip(data,predRList,predC)
+            # object_list = result
             field_list = ['Court Case(s)','Sentence Status', 'Crime Type']
             context={'panel_title':'Court Cases Model Simulator',
             'field_list':field_list,

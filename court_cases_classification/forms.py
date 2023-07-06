@@ -20,6 +20,9 @@ class UploadCourtCaseForm(forms.ModelForm):
         super(UploadCourtCaseForm, self).__init__(*args, **kwargs)
         self.fields['text'].required = False
         self.fields['excel_file'].required = False
+        self.fields['sentence'].required = False
+        self.fields['crime'].required = False
+        
 
 
 # class UploadCourtCaseForm(forms.Form):

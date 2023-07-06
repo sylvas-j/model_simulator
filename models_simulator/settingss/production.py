@@ -1,13 +1,13 @@
 from .common import *
 ###############
 ## configuration for heroku
-import dj_database_url
-import django_heroku
+# import dj_database_url
+# import django_heroku
 ####################
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','https://model-simulator.herokuapp.com/']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','devarchive.org']
 
 
 # TEST/DEVELOPMENT REMOTE DATABASE
@@ -38,11 +38,11 @@ DATABASES = {
 
 
 
-django_heroku.settings(locals())
-django_heroku.settings(config=locals(), staticfiles=False,logging=False)
+# django_heroku.settings(locals())
+# django_heroku.settings(config=locals(), staticfiles=False,logging=False)
 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# prod_db  =  dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
 
 
 # configuration for heroku
