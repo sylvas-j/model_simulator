@@ -17,13 +17,20 @@ from keras.utils.np_utils import to_categorical
 import collections, itertools
 from keras.preprocessing.text import Tokenizer
 from keras.utils import pad_sequences
+# from keras_preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import (LabelBinarizer, OrdinalEncoder,LabelEncoder,MinMaxScaler)
 from keras.models import load_model
 # gui
 from ml_helpers.EncodeDecode import TextLabelEncoderDummy as ed
 from .converters import ResultSummary, OrderedLabelEncoder, TextLabelEncoderDummy
 
-
+# # Download these NLTK packages
+# nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('maxent_ne_chunker')
+# nltk.download('words')
+# nltk.download('wordnet')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
