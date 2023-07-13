@@ -54,7 +54,7 @@ def index(request):
         else:
             context = {'message':'Invalid User Name and Password'}
             return render(request, 'index.html', context)
-    return render(request, 'index.html', {'name': 'smart', 'pass': 'Home@123'})
+    return render(request, 'index.html', {'name': 'admin', 'pass': 'Info@123'})
 
 directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))    
 file_db = os.path.join(directory, 'court_cases_classification/court_cases/sherloc_court_cases_7.csv')
@@ -79,12 +79,14 @@ def upload_data(request):
                 df = pd.DataFrame(sheet.values,columns=['text'])
                 # print(df)
                 data = itertools.chain.from_iterable(df.values)
+                # data = df.values
                 # print(data)
             else:
                 # transform data
                 # text = pred_text.get('1.0','end')
                 df = pd.DataFrame({'text':[text]})
-                data = df.values
+                data = itertools.chain.from_iterable(df.values)
+                # data = df.values
             X = Predict.transform_text(df)
             predR = Predict.pred_r(X)
             predC = Predict.pred_c(X)
@@ -97,12 +99,19 @@ def upload_data(request):
                     predRList.append('Sentenced')
 
             # UploadCourtCaseForm.save(.)
-            data = [text]
+            text = [i for i in data]
+            # print(data)
+            # print('*'*40)
             # print(text)
+            # print('*'*40)
+            # print(df)
+            # print('*'*40)
             # print(predRList)
+            # print('*'*40)
             # print(predC)
             # save record
-            df1 = pd.DataFrame({'text':data,'crime_types':predC,'sentence':predRList})
+            df1 = pd.DataFrame({'text':text,'crime_types':predC,'sentence':predRList})
+            # df1 = pd.DataFrame({'crime_types':predC,'sentence':predRList})
             df2 = pd.read_csv(file_db)
             df3 = pd.concat([df2,df1],axis=0)
             df3.to_csv(file_db,index=False)
@@ -115,7 +124,7 @@ def upload_data(request):
             # 'text','sentence','crime')
             # print(result)
 
-            object_list = zip(data,predRList,predC)
+            object_list = zip(text,predRList,predC)
             # object_list = result
             field_list = ['Court Case(s)','Sentence Status', 'Crime Type']
             context={'panel_title':'Court Cases Model Simulator',
@@ -137,7 +146,31 @@ def upload_data(request):
         return render(request, "court_cases/court_cases_list.html", context)
 
 
+import csv
+from django.http import HttpResponse
 
+def downloads(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename=court cases.csv'},
+    )
+    df = pd.read_csv(file_db)
+    writer = csv.writer(response)
+    writer.writerow(["text", "crime_types", "sentence"])
+    for i in range(len(df)):
+        writer.writerow(df.values[i])
+    return response
+
+
+def download_page(request):
+    # pass
+    context = {}
+    context['main_page_title'] = 'Download Record'
+    context['panel_name'] = 'Download'
+    context['panel_title'] = 'Download'
+    context['file'] = file_db
+    return render(request, "court_cases/court_cases_download.html",context)
 
 
 

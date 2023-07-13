@@ -61,6 +61,9 @@ services: # the different images that will be running as containers
 # expose the port to other services defined here so that they can access this service via the exposed port. In the case of Django, this is 8000 by default
     expose: 
       - ${APP_PORT} # retrieved from the .env file
+
+    ports: 
+      - 8282:80
     
 
     restart: "on-failure"

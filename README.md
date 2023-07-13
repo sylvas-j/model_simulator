@@ -3,7 +3,10 @@ for simulating models built
 
 cd ../../users/sylvanus jerome/documents/python_scriptstopwordss/models_simulator
 
-cd Documents/things-n-thingses/python/web-stack/models_simulator
+cd ~/Documents/things-n-thingses/python/web-stack/models_simulator
+nano models_simulator/settingss/production.py
+docker logs -n 20 -f mod-sim-con-web
+docker exec -it mod-sim-con-web bash
 
 Set environment variables
 ENV POSTGRES_USER=<your-postgres-username>

@@ -35,7 +35,7 @@ def index(request):
         else:
             context = {'message':'Invalid User Name and Password'}
             return render(request, 'index.html', context)
-    return render(request, 'index.html', {'name': 'smart', 'pass': 'Home@123'})
+    return render(request, 'index.html', {'name': 'admin', 'pass': 'Info@123'})
 
         
 

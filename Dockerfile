@@ -26,10 +26,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV C_FORCE_ROOT true
 ENV WORK_DIR app
-# Install dependencies for mysqlclients library
+
+ENV MYSQLCLIENT_CFLAGS pkg-config mysqlclient --cflags
+ENV MYSQLCLIENT_LDFLAGS pkg-config mysqlclient --libs
+# Install dependencies for mysqlclients library # pkg-config
 RUN apt-get update && apt-get install -y git
 RUN apt-get install -y python3-dev default-libmysqlclient-dev \
-    build-essential libpq-dev pkg-config &&\
+    build-essential libpq-dev &&\
     rm -rf /var/lib/apt/list/*
 
 # Set the working directory to /app
@@ -49,10 +52,11 @@ COPY --chmod=0755 *.sh .
 # RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
 # RUN chmod +x /usr/src/app/entrypoint.sh
 
-COPY nltk-download.py .
-RUN nltk-download.py
 # Activate venv
 ENV PATH="/opt/venv/bin:$PATH"
+
+COPY nltk-download.py .
+# RUN python nltk-download.py
 # Run Django migrations when not using entrypoint file
 # RUN --add-host=host.docker.internal:host-gateway
 # RUN python manage.py makemigrations
@@ -61,5 +65,5 @@ ENV PATH="/opt/venv/bin:$PATH"
 # RUN python manage.py collectstatic --no-input
 
 # Start the Django development server
-CMD ["sh", "-c", "gunicorn models_simulator.wsgi:application --bind 0.0.0.0:${APP_PORT}"]
+CMD ["sh", "-c", "gunicorn models_simulator.wsgi:application --bind 0.0.0.0:${APP_PORT} --timeout 6000"]
 # ENTRYPOINT ["sh", "-c", "entrypoint.sh"]

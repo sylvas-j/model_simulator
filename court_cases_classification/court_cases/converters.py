@@ -10,7 +10,8 @@ from sklearn.metrics import(
 from sklearn.preprocessing import (
     StandardScaler, LabelBinarizer, FunctionTransformer,PolynomialFeatures, OrdinalEncoder,LabelEncoder,MinMaxScaler
 )
-from keras.utils import np_utils
+# from keras.utils import np_utils
+from keras.utils import to_categorical
 from sklearn.utils.validation import column_or_1d
 
 
@@ -87,7 +88,7 @@ class TextLabelEncoderDummy:
   def encoded_to_dummy(encoded_Y):
     # convert encoder variable to dummy variable
     uniques, ids = np.unique(encoded_Y, return_inverse=True)
-    dummy_y = np_utils.to_categorical(ids, len(uniques))
+    dummy_y = to_categorical(ids, len(uniques))
     # dummy_y = np_utils.to_categorical(encoded_Y)
     return dummy_y, uniques
 

@@ -1,4 +1,4 @@
-from keras.utils.np_utils import to_categorical
+from keras.utils import to_categorical
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import seaborn as sns
