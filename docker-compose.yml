@@ -17,6 +17,7 @@ services: # the different images that will be running as containers
 # static storages provisioned since django does not handle static files in production
     volumes:  
       - static_volume:/${WORK_DIR}/static
+      - media_volume:/${WORK_DIR}/media
     # links:
     #   - web:web
 
@@ -53,6 +54,7 @@ services: # the different images that will be running as containers
     volumes: 
       - .:/${WORK_DIR} 
       - static_volume:/${WORK_DIR}/static
+      - media_volume:/${WORK_DIR}/media
 
 # file where env variables are stored. Used as best practice so as not to expose secret keys
     env_file: 
@@ -74,12 +76,41 @@ services: # the different images that will be running as containers
     #             - web
 
 # cannot start if db service is not up and running
-    # depends_on: - db
+    depends_on: 
+      - db
+
+
+
+  db: # service name
+
+#build the image for the web service from the dockerfile in parent directory.  
+    build: ./db
+    image: mod-sim-db
+    container_name: mod-sim-con-db
+# map data and files from parent directory in host to microservice directory in docker container
+    volumes: 
+      - mysql_volume:/var/lib/mysql
+
+# file where env variables are stored. Used as best practice so as not to expose secret keys
+    env_file: 
+      - .env # name of the env file
+
+# expose the port to other services defined here so that they can access this service via the exposed port. In the case of Django, this is 8000 by default
+    expose: 
+      - ${MYSQL_PORT} # retrieved from the .env file
+
+    ports: 
+      - 3307:${MYSQL_PORT}
+    
+
+    restart: "on-failure"
 
 
   
 volumes:
   static_volume:
+  mysql_volume:
+  media_volume:
 
 # networks:
 #   main:

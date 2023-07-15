@@ -60,28 +60,28 @@ CORS_ORIGIN_WHITELIST = [
 # }
 
 
-# DATABASES = {
-#     # 'default': {},
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'admin_mod_sim2',
-#         'USER': 'admin_root2',
-#         'PASSWORD': 'admin_sylvas2',
-#         'HOST': '104.37.191.201',
-#         # 'HOST': 'devarchive.org',
-#         'PORT': '3306',
-#         'OPTIONS': {
-#           'init_command': "set sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'"
-#         },
-#     },
-# }
-
 DATABASES = {
+    # 'default': {},
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': os.environ.get('MYSQL_ENGINE'),
+        'NAME': os.environ.get('MYSQL_DATABASE'),
+        'USER': os.environ.get('MYSQL_USER'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+        'HOST': os.environ.get('MYSQL_HOST'),
+        'PORT': os.environ.get('MYSQL_PORT'),
+        'OPTIONS': {
+            'auth_plugin': 'mysql_native_password'
+        }
+
+    },
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 

@@ -56,7 +56,7 @@ COPY --chmod=0755 *.sh .
 ENV PATH="/opt/venv/bin:$PATH"
 
 COPY nltk-download.py .
-# RUN python nltk-download.py
+RUN python nltk-download.py
 # Run Django migrations when not using entrypoint file
 # RUN --add-host=host.docker.internal:host-gateway
 # RUN python manage.py makemigrations
