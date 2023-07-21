@@ -5,6 +5,8 @@ cd ../../users/sylvanus jerome/documents/python_scriptstopwordss/models_simulato
 
 cd ~/Documents/things-n-thingses/python/web-stack/models_simulator
 nano models_simulator/settingss/production.py
+nano git/models_simulator/models_simulator/settingss/production.py
+
 docker logs -n 20 -f mod-sim-con-web
 docker exec -it mod-sim-con-web bash
 
@@ -15,6 +17,11 @@ docker exec some-mysql sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_RO
 retrieve data from dump file
 $ docker exec -i some-mysql sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < /some/path/on/your/host/all-databases.sql
 
+
+Debugging links
+http://www.devarchive.org:8181/ nginx
+http://www.devarchive.org:8282 gunicorn
+http://www.devarchive.org:3307 mysql
 
 
 Set environment variables

@@ -13,12 +13,20 @@ ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8181',
+    'http://devarchive.org',
+    'https://devarchive.org',
+    'http://www.devarchive.org',
+    'https://www.devarchive.org',
     'http://devarchive.org:8181',
     'http://www.devarchive.org:8181',
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8181',
+    'http://devarchive.org',
+    'https://devarchive.org',
+    'http://www.devarchive.org',
+    'https://www.devarchive.org',
     'http://devarchive.org:8181',
     'http://www.devarchive.org:8181',
 ]
