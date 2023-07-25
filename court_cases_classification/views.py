@@ -139,9 +139,9 @@ def upload_data(request):
             return redirect('court_cases_classification:court_case')
     else:
         form = UploadCourtCaseForm()
-        context['main_page_title'] = 'Declare Students Result'
-        context['panel_name'] = 'Results'
-        context['panel_title'] = 'Declare Result'
+        context['main_page_title'] = 'Check court case type and predict whether sentence or not'
+        context['panel_name'] = 'Court Case Model Simulator'
+        context['panel_title'] = 'Predict'
         context['form'] = form
         return render(request, "court_cases/court_cases_list.html", context)
 
@@ -166,11 +166,21 @@ def downloads(request):
 def download_page(request):
     # pass
     context = {}
-    context['main_page_title'] = 'Download Record'
+    context['main_page_title'] = 'Download Court Cases Records'
     context['panel_name'] = 'Download'
-    context['panel_title'] = 'Download'
+    context['panel_title'] = 'Download Court Case File'
     context['file'] = file_db
     return render(request, "court_cases/court_cases_download.html",context)
+
+
+def about(request):
+    # pass
+    context = {}
+    context['main_page_title'] = 'About Court Cases Simulator'
+    context['panel_name'] = 'About'
+    context['panel_title'] = 'How to use the simulator'
+    # context['file'] = file_db
+    return render(request, "court_cases/court_cases_about.html",context)
 
 
 

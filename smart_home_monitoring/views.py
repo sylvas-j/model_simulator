@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView, View
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from openpyxl import load_workbook
+from openpyxl import load_workbook,Workbook
 import pandas as pd
 import os
 from keras.models import load_model
@@ -15,6 +15,8 @@ from sklearn.preprocessing import StandardScaler
 
 from smart_home_monitoring.forms import UploadDataForm
 from .converters import ResultSummary, OrderedLabelEncoder, TextLabelEncoderDummy
+
+# import xlwt
 
 
 
@@ -137,6 +139,107 @@ def upload_data(request):
     return render(request, "smart_home/smarthome_list.html", context)
 
 
+
+# directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))    
+file_db = os.path.join(directory, 'smart_home_monitoring/smart_home/smart_home_test_data.xlsx')
+
+# cols = ['lastSensorEventHours', 'lastSensorEventSeconds', 'lastSensorDayOfWeek',
+#     'windowDuration', 'timeSinceLastSensorEvent', 'prevDominantSensor1',
+#     'prevDominantSensor2', 'lastSensorID', 'lastSensorLocation',
+#     'lastMotionLocation', 'complexity', 'activityChange', 'areaTransitions',
+#     'numDistinctSensors', 'sensorCount-Bathroom', 'sensorCount-Bedroom',
+#     'sensorCount-Chair', 'sensorCount-DiningRoom', 'sensorCount-Hall',
+#     'sensorCount-Ignore', 'sensorCount-Kitchen', 'sensorCount-LivingRoom',
+#     'sensorCount-Office', 'sensorCount-OutsideDoor', 'sensorCount-WorkArea',
+#     'sensorElTime-Bathroom', 'sensorElTime-Bedroom', 'sensorElTime-Chair',
+#     'sensorElTime-DiningRoom', 'sensorElTime-Hall', 'sensorElTime-Ignore',
+#     'sensorElTime-Kitchen', 'sensorElTime-LivingRoom',
+#     'sensorElTime-Office', 'sensorElTime-OutsideDoor',
+#     'sensorElTime-WorkArea','activities']
+
+
+# def downloads(request):
+# def downloads1(request):
+#     response = HttpResponse(
+#         content_type="application/ms-excel",
+#         headers={"Content-Disposition": 'attachment; filename=smart home test data.xlsx'},
+#     )
+#     wb = xlwt.Workbook(encoding='utf-8')
+#     ws = wb.add_sheet("sheet1")
+#     row_num = 0
+#     font_style = xlwt.XFStyle()
+#     font_style.font.bold = True
+
+#     for col_num in range(len(cols)):
+#         ws.write(row_num, col_num, cols[col_num], font_style)
+    
+#     font_style = xlwt.XFStyle()
+#     # data = file_db
+#     # df = pd.read_csv(file_db)
+#     wb1 = load_workbook(file_db, data_only=True)
+#     sheet = wb1[wb1.sheetnames[0]]
+#     df = pd.DataFrame(sheet.values)
+#     print(df.values[0][0])
+#     print(len(df))
+#     print(len(df.values[0]))
+
+#     for i in range(len(df)):
+#         if i == (len(df)-1):
+#             break
+#         for d in range(len(df.values[i])):
+#             ws.write(i+1,d,df.values[i+1][d])
+
+#     wb.save(response)
+#     return response
+
+
+def downloads(request):
+    response = HttpResponse(
+        content_type="application/ms-excel",
+        headers={"Content-Disposition": 'attachment; filename=smart home test data.xlsx'},
+    )
+    wb1 = load_workbook(file_db, data_only=True)
+    sheet = wb1[wb1.sheetnames[0]]
+    df = pd.DataFrame(sheet.values)
+
+    wb = Workbook()
+    dest_filename = 'empty_book.xlsx'
+    # Get first sheet
+    ws = wb.active
+    # ws1.title = "Range"
+    # ws = wb.create_sheet(title="Data")
+    for row in range(len(df)):
+        ws.append(list(df.values[row]))
+    # for row in range(len(df)):
+    #     print(df.values[row])
+    #     for col in range(len(df.values[row])):
+    #         # Fill the cell with the column letter
+    #         # ws.cell(row=row+1, column=col+1, value="l")
+    #         break
+    
+    # Save the workbook
+    wb.save(response)
+    return response
+
+
+def download_page(request):
+    # pass
+    context = {}
+    context['main_page_title'] = 'Download Smart Home Monitoring Records'
+    context['panel_name'] = 'Download'
+    context['panel_title'] = 'Download Smart Home Monitoring Test File'
+    context['file'] = file_db
+    return render(request, "smart_home/smarthome_download.html",context)
+
+
+def about(request):
+    # pass
+    context = {}
+    context['main_page_title'] = 'About Smart Home Monitoring Simulator'
+    context['panel_name'] = 'About'
+    context['panel_title'] = 'How to use the simulator'
+    context['file'] = file_db
+    return render(request, "smart_home/smarthome_about.html",context)
 
 
 
