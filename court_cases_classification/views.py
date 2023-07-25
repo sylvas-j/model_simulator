@@ -17,9 +17,10 @@ from court_cases_classification.models import UploadCourtCase
 from court_cases_classification.forms import UploadCourtCaseForm
 from .court_cases.predict import Predict
 import pandas as pd
+import csv
 
-
-
+from helpers.decorators import unauthenticated_user
+# from django.contrib.auth.decorators import login_required
 
 
 def logoutUser(request):
@@ -49,7 +50,7 @@ def index(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('court_cases_classification:dashboard')
+            return redirect('smart_home_monitoring:dashboard')
             
         else:
             context = {'message':'Invalid User Name and Password'}
@@ -59,11 +60,9 @@ def index(request):
 directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))    
 file_db = os.path.join(directory, 'court_cases_classification/court_cases/sherloc_court_cases_7.csv')
 
-# def save_record(df3,file_db):
-#     # save record
-#     df3.to_csv(file_db,index=False)
 
-
+@unauthenticated_user
+# @login_required
 def upload_data(request):
     context = {}
     if request.method == "POST":
@@ -146,9 +145,8 @@ def upload_data(request):
         return render(request, "court_cases/court_cases_list.html", context)
 
 
-import csv
-from django.http import HttpResponse
 
+@unauthenticated_user
 def downloads(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(
@@ -162,7 +160,7 @@ def downloads(request):
         writer.writerow(df.values[i])
     return response
 
-
+@unauthenticated_user
 def download_page(request):
     # pass
     context = {}
@@ -172,7 +170,7 @@ def download_page(request):
     context['file'] = file_db
     return render(request, "court_cases/court_cases_download.html",context)
 
-
+@unauthenticated_user
 def about(request):
     # pass
     context = {}

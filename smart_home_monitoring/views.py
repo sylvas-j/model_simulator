@@ -15,6 +15,7 @@ from sklearn.preprocessing import StandardScaler
 
 from smart_home_monitoring.forms import UploadDataForm
 from .converters import ResultSummary, OrderedLabelEncoder, TextLabelEncoderDummy
+from helpers.decorators import unauthenticated_user
 
 # import xlwt
 
@@ -66,7 +67,7 @@ model = os.path.join(directory, 'smart_home_monitoring/smart_home/smart_home_mod
 # print(model)
 activity = pd.read_csv(os.path.join(directory, 'smart_home_monitoring/smart_home/activity.csv'), index_col=False) 
 
-
+@unauthenticated_user
 def upload_data(request):
     context = {}
     if request.method == "POST":
@@ -74,7 +75,7 @@ def upload_data(request):
         print(request.FILES.get('excel_file'))
         if form.is_valid():
             file = request.FILES.get('excel_file')
-            pred_range = request.POST['pred_range']
+            # pred_range = request.POST['pred_range']
         
             wb = load_workbook(file, data_only=True)
             sheet = wb[wb.sheetnames[0]]
@@ -132,9 +133,9 @@ def upload_data(request):
             return redirect('smart_home_monitoring:upload_data')
     else:
         form = UploadDataForm()
-        context['main_page_title'] = 'Declare Students Result'
-        context['panel_name'] = 'Results'
-        context['panel_title'] = 'Declare Result'
+        context['main_page_title'] = 'Compare Between Actual and Predicted Result on Model built with Ambient Signal Datasets'
+        context['panel_name'] = 'Smart Home Model Simulator'
+        context['panel_title'] = 'Predict'
         context['form'] = form
     return render(request, "smart_home/smarthome_list.html", context)
 
@@ -192,7 +193,7 @@ file_db = os.path.join(directory, 'smart_home_monitoring/smart_home/smart_home_t
 #     wb.save(response)
 #     return response
 
-
+@unauthenticated_user
 def downloads(request):
     response = HttpResponse(
         content_type="application/ms-excel",
@@ -221,7 +222,7 @@ def downloads(request):
     wb.save(response)
     return response
 
-
+@unauthenticated_user
 def download_page(request):
     # pass
     context = {}
@@ -231,7 +232,7 @@ def download_page(request):
     context['file'] = file_db
     return render(request, "smart_home/smarthome_download.html",context)
 
-
+@unauthenticated_user
 def about(request):
     # pass
     context = {}

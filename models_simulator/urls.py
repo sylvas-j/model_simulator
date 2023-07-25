@@ -26,7 +26,7 @@ urlpatterns = [
     path('simulators/dashboard/smart-home/', include('smart_home_monitoring.urls')),
     path('simulators/dashboard/court-cases/', include('court_cases_classification.urls')),
     path('simulators/admin/', admin.site.urls),
-    path('simulators/accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 
 ]
 if settings.DEBUG:

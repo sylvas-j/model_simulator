@@ -9,46 +9,14 @@
 {% block main_page_content %}
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <a class="dashboard-stat bg-primary" href="{% url 'students:student_list' %}">
+            <a class="dashboard-stat bg-primary" href="{% url 'smart_home_monitoring:dashboard' %}">
     
-                <span class="number counter">{{ students }}</span>
-                <span class="name">Regd Studets</span>
+                <span class="number counter">0000</span>
+                <span class="name">Models</span>
                 <span class="bg-icon"><i class="fa fa-users"></i></span>
             </a>
             <!-- /.dashboard-stat -->
         </div>
-        <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
-    
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <a class="dashboard-stat bg-danger" href="{% url 'subjects:subject_list' %}">
-                <span class="number counter">{{ subjects }}</span>
-                <span class="name">Subjects Listed</span>
-                <span class="bg-icon"><i class="fa fa-ticket"></i></span>
-            </a>
-            <!-- /.dashboard-stat -->
-        </div>
-        <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
-    
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <a class="dashboard-stat bg-warning" href="#">
-                <span class="number counter">{{ cls }}</span>
-                <span class="name">Lecturer</span>
-                <span class="bg-icon"><i class="fa fa-bank"></i></span>
-            </a>
-            <!-- /.dashboard-stat -->
-        </div>
-        <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
-    
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <a class="dashboard-stat bg-success" href="{% url 'results:result_list' %}">
-    
-                <span class="number counter">{{ results }}</span>
-                <span class="name">Results Declared</span>
-                <span class="bg-icon"><i class="fa fa-file-text"></i></span>
-            </a>
-            <!-- /.dashboard-stat -->
-        </div>
-        <!-- /.col-lg-3 col-md-3 col-sm-6 col-xs-12 -->
     
     </div>
     <!-- /.row -->

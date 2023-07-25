@@ -9,10 +9,10 @@ class UploadDataForm(forms.ModelForm):
     class Meta:
         model = UploadData
         fields = '__all__'
-        exclude = ['reg_date']
+        exclude = ['reg_date','pred_range']
         
         widgets = {
-            'pred_range'  :   forms.TextInput(attrs={'class':'form-control'}),
+            # 'pred_range'  :   forms.TextInput(attrs={'class':'form-control'}),
             'excel_file'  :   forms.FileInput(attrs={'class':'form-control'}),
             
         }
