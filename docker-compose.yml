@@ -2,7 +2,7 @@ version: '3.7'
 # set project name
 # name: mod-sim-con
 services: # the different images that will be running as containers
-  nginx: # service name
+  mod_nginx: # service name
 
 # location of the dockerfile that defines the nginx image. The dockerfile will be used to spin up an image during the build stage.
     build: ./nginx
@@ -23,7 +23,7 @@ services: # the different images that will be running as containers
 
 # will only start if web is up and running
     depends_on: 
-      - web 
+      - mod_web 
 
     # networks:
     #     main:
@@ -33,7 +33,7 @@ services: # the different images that will be running as containers
 # restart service when it fails
     restart: "on-failure" 
 
-  web: # service name
+  mod_web: # service name
 
 #build the image for the web service from the dockerfile in parent directory.  
     build: .
@@ -76,40 +76,40 @@ services: # the different images that will be running as containers
     #             - web
 
 # cannot start if db service is not up and running
-    depends_on: 
-      - db
+    # depends_on: 
+    #   - mod_db
 
 
 
-  db: # service name
+#   mod_db: # service name
 
-#build the image for the web service from the dockerfile in parent directory.  
-    build: ./db
-    image: mod-sim-db
-    container_name: mod-sim-con-db
-# map data and files from parent directory in host to microservice directory in docker container
-    volumes: 
-      - mysql_volume:/var/lib/mysql
+# #build the image for the web service from the dockerfile in parent directory.  
+#     build: ./db
+#     image: mod-sim-db
+#     container_name: mod-sim-con-db
+# # map data and files from parent directory in host to microservice directory in docker container
+#     volumes: 
+#       - mysql_volume:/var/lib/mysql
 
-# file where env variables are stored. Used as best practice so as not to expose secret keys
-    env_file: 
-      - .env # name of the env file
+# # file where env variables are stored. Used as best practice so as not to expose secret keys
+#     env_file: 
+#       - .env # name of the env file
 
-# expose the port to other services defined here so that they can access this service via the exposed port. In the case of Django, this is 8000 by default
-    expose: 
-      - ${MYSQL_PORT} # retrieved from the .env file
+# # expose the port to other services defined here so that they can access this service via the exposed port. In the case of Django, this is 8000 by default
+#     expose: 
+#       - ${MYSQL_PORT} # retrieved from the .env file
 
-    ports: 
-      - 3307:${MYSQL_PORT}
+#     # ports: 
+#     #   - 3307:${MYSQL_PORT}
     
 
-    restart: "on-failure"
+#     restart: "on-failure"
 
 
   
 volumes:
   static_volume:
-  mysql_volume:
+  # mysql_volume:
   media_volume:
 
 # networks:

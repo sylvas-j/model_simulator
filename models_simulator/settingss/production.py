@@ -31,24 +31,6 @@ CORS_ORIGIN_WHITELIST = [
     'http://www.devarchive.org:8181',
 ]
 
-# CSRF_TRUSTED_ORIGINS = [
-#     'http://localhost:8181',
-#     'http://devarchive.org:8181',
-#     'http://localhost',
-#     'http://devarchive.org',
-#     'http://www.devarchive.org:8181',
-#     'http://www.devarchive.org',
-# ]
-
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost',
-#     'http://localhost:8181',
-#     'http://devarchive.org:8181',
-#     'http://devarchive.org',
-#     'http://www.devarchive.org:8181',
-#     'http://www.devarchive.org',
-# ]
-
 
 # TEST/DEVELOPMENT REMOTE DATABASE
 # DATABASES = {
@@ -68,42 +50,27 @@ CORS_ORIGIN_WHITELIST = [
 # }
 
 
-DATABASES = {
-    # 'default': {},
-    'default': {
-        'ENGINE': os.environ.get('MYSQL_ENGINE'),
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': os.environ.get('MYSQL_HOST'),
-        'PORT': os.environ.get('MYSQL_PORT'),
-        'OPTIONS': {
-            'auth_plugin': 'mysql_native_password'
-        }
-
-    },
-}
-
 # DATABASES = {
+#     # 'default': {},
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#         'ENGINE': os.environ.get('MYSQL_ENGINE'),
+#         'NAME': os.environ.get('MYSQL_DATABASE'),
+#         'USER': os.environ.get('MYSQL_USER'),
+#         'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+#         'HOST': os.environ.get('MYSQL_HOST'),
+#         'PORT': os.environ.get('MYSQL_PORT'),
+#         'OPTIONS': {
+#             'auth_plugin': 'mysql_native_password'
+#         }
+
+#     },
 # }
 
-
-
-
-# django_heroku.settings(locals())
-# django_heroku.settings(config=locals(), staticfiles=False,logging=False)
-
-# prod_db  =  dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(prod_db)
-
-
-# configuration for heroku
-##################
-# ADMINS = (('Webmaster','sylvanusjerome@gmail.com'))
-# MANAGERS = ADMINS
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 

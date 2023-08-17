@@ -9,7 +9,7 @@ myvenv/
 venv/
 
 # Database
-db.sqlite3
+# db.sqlite3
 
 bin
 
@@ -18,7 +18,7 @@ bin
 /srms_project/settings/development.py
 /srms_project/media/
 /staticfiles/
-/media/result_files
+# /media/result_files/
 /bin/
 /lib/
 /share/
@@ -52,7 +52,7 @@ local_settings.py
 
 #files
 *.pdf
-*.xlsx
+# *.xlsx
 # *.png
 # *.jpg
 # *.jpeg
