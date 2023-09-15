@@ -11,8 +11,8 @@
         <li class="nav-header">
             <span class="">Appearance</span>
         </li>
-
-        <li class="has-children">
+        <!-- Hidden for now -->
+        <li class="has-children" id="dddd">
             <a href="{% url 'smart_home_monitoring:dashboard' %}"><i class="fa fa-file-text"></i> <span>Smart Home</span> <i class="fa fa-angle-right arrow"></i></a>
             <ul class="child-nav">
                 
@@ -21,19 +21,27 @@
                 <li><a href="{% url 'smart_home_monitoring:about' %}"><i class="fa fa fa-server"></i> <span>About</span></a></li>
             </ul>
         </li>
+
         <li class="has-children">
             <a href="{% url 'smart_home_monitoring:dashboard' %}"><i class="fa fa-file-text"></i> <span>Court Cases</span> <i class="fa fa-angle-right arrow"></i></a>
             <ul class="child-nav">
                 
-                <li><a href="{% url 'court_cases_classification:court_case' %}"><i class="fa fa fa-server"></i> <span>Actual $ Predicted</span></a></li>
+                <li><a href="{% url 'court_cases_classification:court_case' %}"><i class="fa fa fa-server"></i> <span>Make Predictions</span></a></li>
                 <li><a href="{% url 'court_cases_classification:download_page' %}"><i class="fa fa fa-server"></i> <span>Download Records</span></a></li>
                 <li><a href="{% url 'court_cases_classification:about' %}"><i class="fa fa fa-server"></i> <span>About</span></a></li>
             </ul>
         </li>
-    
-        <li>
+    <!-- Hidden for now -->
+        <li id="ddd">
             <a href="{% url 'smart_home_monitoring:dashboard' %}"><i class="fa fa fa-server"></i> <span>Change Password</span></a>
         </li>
 
     </ul>
 </div>
+
+<script>
+    d = document.getElementById('dddd')
+    d.style.display = 'none'
+    dd = document.getElementById('ddd')
+    dd.style.display = 'none'
+</script>
