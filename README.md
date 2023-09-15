@@ -1,11 +1,16 @@
 # model_simulator
 for simulating models built
+install: cannot create regular file '/usr/local/bin/git-lfs': Permission denied
+*.h5 filter=lfs diff=lfs merge=lfs -text
 
 cd ../../users/sylvanus jerome/documents/python_scriptstopwordss/models_simulator
 
 cd ~/Documents/things-n-thingses/python/web-stack/models_simulator
 nano models_simulator/settingss/production.py
 nano git/models_simulator/models_simulator/settingss/production.py
+
+cd git/models_simulator/
+git rm -r --cached .
 
 docker logs -n 20 -f mod-sim-con-web
 docker exec -it mod-sim-con-web bash

@@ -8,6 +8,8 @@ __pycache__
 myvenv/
 venv/
 
+court_cases_classification/court_cases/classification_lstm.h5
+court_cases_classification/court_cases/regression_lstm.h5
 # Database
 # db.sqlite3
 
