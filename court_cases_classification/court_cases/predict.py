@@ -66,6 +66,7 @@ class Predict:
     def clean_up(data):
         """Function that cleans up the data into a shape that can be further used for modeling"""
         data.drop_duplicates() # drop duplicate tweets
+        print('ddddddddddddd-  ',data)
         data['text'].dropna(inplace=True) # drop any rows with missing tweets
         tokenized = data['text'].apply(Predict.custom_tokenize) # Tokenize tweets
         lower_tokens = tokenized.apply(lambda x: [t.lower() for t in x]) # Convert tokens into lower case
@@ -84,7 +85,36 @@ class Predict:
 
         return tag_dict.get(tag, wordnet.NOUN)
 
-    def transform_text(df):
+    def transform_text_r(dfff):
+        # clean df text
+        cleaned_text_chunk = Predict.clean_up(dfff)
+        # create word dict
+        dictionary = Dictionary(cleaned_text_chunk)
+        # creaate corpus
+        corpus = cleaned_text_chunk.apply(lambda x: dictionary.doc2bow(x))
+        # rename columns
+        dfff.rename(columns={'text':'raw_text'}, inplace=True)
+        dfff = pd.concat([dfff,cleaned_text_chunk],axis=1)
+        dfff.rename(columns={'text':'tokenized_cleaned_text'}, inplace=True)
+
+        # Lemmatize tokens
+        lemmatizer = WordNetLemmatizer()
+        dfff['lemmatized'] = dfff['tokenized_cleaned_text'].apply(lambda x: [lemmatizer.lemmatize(word, Predict.get_wordnet_pos(word)) for word in x])
+        dfff['tokens_back_to_text'] = [' '.join(map(str, l)) for l in dfff['lemmatized']]
+
+        ddd = dfff['tokens_back_to_text'].values
+        # prepare tokenizer
+        tokenizer = Tokenizer()
+        tokenizer.fit_on_texts(ddd)
+
+        # integer encode the documents
+        sequences = tokenizer.texts_to_sequences(ddd)
+        maxlen = 100
+        X = pad_sequences(sequences, maxlen=maxlen)
+
+        return X
+    
+    def transform_text_c(df):
         # clean df text
         cleaned_text_chunk = Predict.clean_up(df)
         # create word dict
@@ -108,10 +138,11 @@ class Predict:
 
         # integer encode the documents
         sequences = tokenizer.texts_to_sequences(ddd)
-        maxlen = 25
+        maxlen = 50
         X = pad_sequences(sequences, maxlen=maxlen)
 
         return X
+
 
     def pred_r(X):
         uniques_r, dummy_y, encoder_r = Predict.y_cat_r()

@@ -17,6 +17,13 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 
 
 import os
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import tensorflow as tf
+tf.config.set_visible_devices([], 'GPU')
+
+
 from django.core.wsgi import get_wsgi_application
 from helpers.credentials import dev_prod
 

@@ -84,11 +84,18 @@ def upload_data(request):
                 # transform data
                 # text = pred_text.get('1.0','end')
                 df = pd.DataFrame({'text':[text]})
+                print(df)
                 data = itertools.chain.from_iterable(df.values)
                 # data = df.values
-            X = Predict.transform_text(df)
-            predR = Predict.pred_r(X)
-            predC = Predict.pred_c(X)
+            print('dfhfhfhfh   ',df)
+            dfff = df.copy()
+            Xr = Predict.transform_text_r(dfff)
+            print('dffffffffff   ',df)
+            Xc = Predict.transform_text_c(df)
+            print(Xr)
+            print(Xc)
+            predR = Predict.pred_r(Xr)
+            predC = Predict.pred_c(Xc)
 
             predRList = []
             for i in predR:
@@ -126,7 +133,7 @@ def upload_data(request):
             object_list = zip(text,predRList,predC)
             # object_list = result
             field_list = ['Court Case(s)','Sentence Status', 'Crime Type']
-            context={'panel_title':'Court Cases Model Simulator',
+            context={'panel_title':'Court Cases Model',
             'field_list':field_list,
             'object_list':object_list}
 
@@ -138,8 +145,8 @@ def upload_data(request):
             return redirect('court_cases_classification:court_case')
     else:
         form = UploadCourtCaseForm()
-        context['main_page_title'] = 'Check court case type and predict whether sentence or not'
-        context['panel_name'] = 'Court Case Model Simulator'
+        context['main_page_title'] = 'Check court case type and predict whether sentenced or not'
+        context['panel_name'] = 'Court Case Model'
         context['panel_title'] = 'Predict'
         context['form'] = form
         return render(request, "court_cases/court_cases_list.html", context)

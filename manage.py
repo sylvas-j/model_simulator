@@ -3,6 +3,20 @@
 import os
 import sys
 
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import tensorflow as tf
+tf.config.set_visible_devices([], 'GPU')
+
+# # Set CPU as available physical device
+# my_devices = tf.config.experimental.list_physical_devices(device_type='CPU')
+# tf.config.experimental.set_visible_devices(devices= my_devices, device_type='CPU')
+
+# # To find out which devices your operations and tensors are assigned to
+# tf.debugging.set_log_device_placement(True)
+
+
 
 # def main():
 #     """Run administrative tasks."""
