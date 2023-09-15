@@ -84,16 +84,16 @@ def upload_data(request):
                 # transform data
                 # text = pred_text.get('1.0','end')
                 df = pd.DataFrame({'text':[text]})
-                print(df)
+                # print(df)
                 data = itertools.chain.from_iterable(df.values)
                 # data = df.values
-            print('dfhfhfhfh   ',df)
+            # print('dfhfhfhfh   ',df)
             dfff = df.copy()
             Xr = Predict.transform_text_r(dfff)
             print('dffffffffff   ',df)
             Xc = Predict.transform_text_c(df)
-            print(Xr)
-            print(Xc)
+            # print(Xr)
+            # print(Xc)
             predR = Predict.pred_r(Xr)
             predC = Predict.pred_c(Xc)
 
