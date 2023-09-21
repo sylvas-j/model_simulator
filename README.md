@@ -10,6 +10,9 @@ nano models_simulator/settingss/production.py
 nano git/models_simulator/models_simulator/settingss/production.py
 
 cd git/models_simulator/
+
+/home/sylverse/htdocs/models_simulator
+
 git rm -r --cached .
 
 docker logs -n 20 -f mod-sim-con-web

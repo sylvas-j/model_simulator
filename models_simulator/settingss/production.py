@@ -19,6 +19,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://www.devarchive.org',
     'http://devarchive.org:8181',
     'http://www.devarchive.org:8181',
+    'http://193.203.167.210:8181',
+    'http://193.203.167.210',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -29,6 +31,8 @@ CORS_ORIGIN_WHITELIST = [
     'https://www.devarchive.org',
     'http://devarchive.org:8181',
     'http://www.devarchive.org:8181',
+    'http://193.203.167.210:8181',
+    'http://193.203.167.210',
 ]
 
 
