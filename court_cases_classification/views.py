@@ -181,9 +181,9 @@ def download_page(request):
 def about(request):
     # pass
     context = {}
-    context['main_page_title'] = 'About Court Cases Simulator'
+    context['main_page_title'] = 'About Court Cases Application'
     context['panel_name'] = 'About'
-    context['panel_title'] = 'How to use the simulator'
+    context['panel_title'] = 'How to use the model'
     # context['file'] = file_db
     return render(request, "court_cases/court_cases_about.html",context)
 
